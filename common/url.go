@@ -486,20 +486,29 @@ func (c URL) GetParamBool(key string, d bool) bool {
 
 // GetParamInt gets int value by @key
 func (c URL) GetParamInt(key string, d int64) int64 {
-	r, err := strconv.Atoi(c.GetParam(key, ""))
+	r, err := strconv.ParseInt(c.GetParam(key, ""), 10, 64)
 	if r == 0 || err != nil {
 		return d
 	}
-	return int64(r)
+	return r
+}
+
+// GetParamInt64 gets int value by @key
+func (c URL) GetParamInt32(key string, d int32) int32 {
+	r, err := strconv.ParseInt(c.GetParam(key, ""), 10, 32)
+	if r == 0 || err != nil {
+		return d
+	}
+	return int32(r)
 }
 
 // GetMethodParamInt gets int method param
 func (c URL) GetMethodParamInt(method string, key string, d int64) int64 {
-	r, err := strconv.Atoi(c.GetParam("methods."+method+"."+key, ""))
+	r, err := strconv.ParseInt(c.GetParam("methods."+method+"."+key, ""), 10, 64)
 	if r == 0 || err != nil {
 		return d
 	}
-	return int64(r)
+	return r
 }
 
 // GetMethodParamInt64 gets int64 method param
